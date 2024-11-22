@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5weyp8seck4o"]
+
+[ext_resource type="AudioStream" uid="uid://cw4lr8eurvt6c" path="res://Sounds/music/background_music_normal.mp3" id="1_15oqx"]
+[ext_resource type="AudioStream" uid="uid://dyfxktsojmqky" path="res://Sounds/music/action_music_1.mp3" id="2_5rdig"]
+
+[node name="MusicManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NormalBackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_15oqx")
+volume_db = -35.0
+
+[node name="ActionMusic1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5rdig")
+volume_db = -30.0

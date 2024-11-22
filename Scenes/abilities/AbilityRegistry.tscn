@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr6shu7deknkb"]
+
+[sub_resource type="GDScript" id="GDScript_4t0bh"]
+script/source = "class_name AbilityRegistry
+
+extends Node
+
+var abilities: Dictionary = {}
+
+# Function to add an ability to the registry
+func add_ability(ability: Ability) -> void:
+	abilities[ability.ability_name] = ability
+	print(\"Ability added: \", ability.ability_name)
+
+# Function to retrieve an ability by its name
+func get_ability(name: String) -> Ability:
+	if abilities.has(name):
+		return abilities[name]
+	else:
+		print(\"Ability not found: \", name)
+		return null  # Or return a default ability, or handle the error as needed
+"
+
+[node name="AbilityRegistry" type="Node"]
+script = SubResource("GDScript_4t0bh")

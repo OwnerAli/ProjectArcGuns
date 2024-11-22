@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6akl0m6cv0a3"]
+
+[ext_resource type="Script" path="res://Scenes/abilities/splashscreenmanager.gd" id="1_pwu88"]
+[ext_resource type="PackedScene" path="res://Scenes/main_menu.tscn" id="2_fg65v"]
+[ext_resource type="Texture2D" uid="uid://bknl2vxfgybgw" path="res://Scenes/abilities/Group 6.png" id="3_c0p3x"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("splash_screen")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pwu88")
+load_scene = ExtResource("2_fg65v")
+splash_screen = [NodePath("CenterContainer/TextureRect")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_c0p3x")

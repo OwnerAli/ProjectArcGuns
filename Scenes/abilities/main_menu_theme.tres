@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://beqwe20wd4blv"]
+
+[ext_resource type="FontFile" uid="uid://u72r7w2i21g6" path="res://BloodstainPersonalUseBold-1GM30.ttf" id="1_kwg78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6afo"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.584314)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0b1xf"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyfhr"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 60.0
+expand_margin_top = 60.0
+expand_margin_right = 60.0
+expand_margin_bottom = 60.0
+
+[resource]
+default_font = ExtResource("1_kwg78")
+Button/font_sizes/font_size = 45
+Button/fonts/font = ExtResource("1_kwg78")
+Button/styles/hover = SubResource("StyleBoxFlat_o6afo")
+Button/styles/normal = SubResource("StyleBoxFlat_0b1xf")
+Label/font_sizes/font_size = 34
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_hyfhr")

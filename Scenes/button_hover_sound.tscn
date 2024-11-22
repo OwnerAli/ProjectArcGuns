@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://s6kuaxipix66"]
+
+[ext_resource type="AudioStream" uid="uid://bnfcrq8qtx10o" path="res://Sounds/sfx/button_hover_sound.wav" id="1_gc46q"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_gc46q")

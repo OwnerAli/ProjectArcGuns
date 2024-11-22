@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvfxlnsv2odj6"]
+
+[ext_resource type="AudioStream" uid="uid://per04y8p3ypu" path="res://Sounds/Cinematic Opening Sound Effect [ ezmp3.cc ].mp3" id="1_kmk60"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_kmk60")
+volume_db = -5.0

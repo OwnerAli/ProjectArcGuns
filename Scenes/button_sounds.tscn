@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci855g7bwdng3"]
+
+[ext_resource type="AudioStream" uid="uid://per04y8p3ypu" path="res://Sounds/Cinematic Opening Sound Effect [ ezmp3.cc ].mp3" id="1_0ret1"]
+
+[node name="Node" type="Node"]
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+
+[node name="StartPressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_0ret1")
+volume_db = -10.0
