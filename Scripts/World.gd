@@ -3,6 +3,7 @@ extends Node3D
 @onready var hit_rect = $UI/HitRect
 @onready var spawns = $Map/Spawns
 @onready var navigation_region = $Map/NavigationRegion3D
+@onready var interaction_area: InteractionArea = $InteractionArea
 
 var zombie = load("res://Scenes/Zombie.tscn")
 var instance
@@ -11,7 +12,7 @@ var instance
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-
+	interaction_area.interact = Callable(self, "_on_interact")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -33,3 +34,7 @@ func _on_zombie_spawn_timer_timeout():
 	instance = zombie.instantiate()
 	instance.position = spawn_point
 	navigation_region.add_child(instance)
+	
+func _on_interact():
+	get_tree().change_scene_to_file("res://Scenes/MapIntroAnimation.tscn")
+

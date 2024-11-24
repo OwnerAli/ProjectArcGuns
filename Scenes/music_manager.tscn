@@ -17,4 +17,4 @@ volume_db = -35.0
 
 [node name="ActionMusic1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5rdig")
-volume_db = -30.0
+volume_db = -20.0

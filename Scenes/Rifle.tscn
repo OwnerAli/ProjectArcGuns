@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqpwh2qhltcpn"]
+[gd_scene load_steps=15 format=3 uid="uid://bqpwh2qhltcpn"]
 
 [ext_resource type="PackedScene" uid="uid://beylmx8mc8h0i" path="res://Models/SteampunkGun/Steampunk Rifle.glb" id="1_3vau2"]
 [ext_resource type="PackedScene" uid="uid://wbn6vso58fv" path="res://Scenes/cool_gun.tscn" id="2_g5mcm"]
@@ -9,6 +9,47 @@
 [ext_resource type="Material" uid="uid://dulfbj71v4s8a" path="res://Models/SteampunkGun/Gem.tres" id="4_l3umg"]
 [ext_resource type="Material" uid="uid://borfcqmqsctyn" path="res://Models/SteampunkGun/Copper2.tres" id="5_dvdme"]
 [ext_resource type="Material" uid="uid://cn1p8sjrg3vfy" path="res://Models/SteampunkGun/Copper.tres" id="5_ua4i0"]
+[ext_resource type="AudioStream" uid="uid://bwswyn3evwkox" path="res://Sounds/sfx/gun/record-online-voice-recordercom-4-a-minor-bpm-99_0GZBw9Dc.mp3" id="10_8writ"]
+[ext_resource type="AudioStream" uid="uid://cb3uyc6apjrq8" path="res://Sounds/sfx/gun/record-online-voice-recordercom-6-e-minor-bpm-150_l59ChyBU.mp3" id="11_pv4be"]
+
+[sub_resource type="Animation" id="Animation_knxnk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sounds/AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/AudioStreamPlayer3:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_yh62p"]
 resource_name = "Shoot"
@@ -38,20 +79,29 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.05), Vector3(0, 0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_knxnk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Weapon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sounds/AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sounds/AudioStreamPlayer3:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvmkc"]
@@ -87,3 +137,14 @@ libraries = {
 [node name="RayCast3D" type="RayCast3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00486149, 0.0879632, -0.363327)
 target_position = Vector3(0, 0, -1)
+
+[node name="Sounds" type="Node3D" parent="." index="4"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sounds" index="0"]
+stream = ExtResource("10_8writ")
+volume_db = -50.0
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Sounds" index="1"]
+stream = ExtResource("11_pv4be")
+volume_db = -20.0
+pitch_scale = 0.74

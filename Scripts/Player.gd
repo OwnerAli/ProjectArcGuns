@@ -119,6 +119,7 @@ func hit(dir):
 	velocity += dir * HIT_STAGGER
 	CURRENT_HEALTH -= 2
 	health_changed.emit(CURRENT_HEALTH)
+	$Sounds/GotHit.play()
 	MusicManager.get_child(1).play()
 	if CURRENT_HEALTH <= 0:
 		get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")

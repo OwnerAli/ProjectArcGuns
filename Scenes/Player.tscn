@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://5iurrb07epis"]
+[gd_scene load_steps=13 format=3 uid="uid://5iurrb07epis"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ueh2c"]
 [ext_resource type="PackedScene" uid="uid://bqpwh2qhltcpn" path="res://Scenes/Rifle.tscn" id="2_kpw2n"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://u72r7w2i21g6" path="res://BloodstainPersonalUseBold-1GM30.ttf" id="4_ox4va"]
 [ext_resource type="Texture2D" uid="uid://tcb0ls8xdbrv" path="res://Textures/Health Bar Empty.png" id="6_3t5uh"]
 [ext_resource type="Texture2D" uid="uid://c3legveoshv2p" path="res://Textures/Health Bar Full.png" id="7_gxxqk"]
+[ext_resource type="AudioStream" uid="uid://dbf12ghsqqbil" path="res://Sounds/sfx/PlayerGotHit.mp3" id="8_bhrmw"]
 [ext_resource type="Script" path="res://Scenes/TextureProgressBar.gd" id="8_c7561"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xc2g5"]
@@ -147,5 +148,10 @@ texture_under = ExtResource("6_3t5uh")
 texture_progress = ExtResource("7_gxxqk")
 script = ExtResource("8_c7561")
 player = NodePath("../..")
+
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="GotHit" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("8_bhrmw")
 
 [connection signal="ability_granted" from="." to="." method="_on_ability_granted"]

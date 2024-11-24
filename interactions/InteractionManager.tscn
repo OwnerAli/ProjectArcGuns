@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d03633ne6a7u6"]
+
+[ext_resource type="Script" path="res://interactions/InteractionManager.gd" id="1_qfg6v"]
+
+[node name="InteractionManager" type="Node3D"]
+script = ExtResource("1_qfg6v")
+
+[node name="Label3D" type="Label3D" parent="."]
+billboard = 1
+text = "[F] TO INTERACT"
+uppercase = true

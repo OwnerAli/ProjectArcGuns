@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwxmms76rj1mu"]
+
+[ext_resource type="AudioStream" uid="uid://ycenkc25jjaw" path="res://Sounds/sfx/Spawn.mp3" id="1_p66rv"]
+[ext_resource type="Script" path="res://AudioStreamPlayer3D.gd" id="2_ht37f"]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_p66rv")
+script = ExtResource("2_ht37f")
