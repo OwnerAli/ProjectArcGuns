@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://5iurrb07epis"]
+[gd_scene load_steps=14 format=3 uid="uid://5iurrb07epis"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ueh2c"]
 [ext_resource type="PackedScene" uid="uid://bqpwh2qhltcpn" path="res://Scenes/Rifle.tscn" id="2_kpw2n"]
+[ext_resource type="PackedScene" uid="uid://c6p2b1t4cnw0x" path="res://Scenes/death_screen.tscn" id="2_ytsps"]
 [ext_resource type="Texture2D" uid="uid://843ymq464tgw" path="res://Textures/Zombie Counter.png" id="3_157xr"]
 [ext_resource type="FontFile" uid="uid://u72r7w2i21g6" path="res://BloodstainPersonalUseBold-1GM30.ttf" id="4_ox4va"]
 [ext_resource type="Texture2D" uid="uid://tcb0ls8xdbrv" path="res://Textures/Health Bar Empty.png" id="6_3t5uh"]
@@ -23,6 +24,7 @@ Label/fonts/font = ExtResource("4_ox4va")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 floor_max_angle = 1.0472
 script = ExtResource("1_ueh2c")
+death_screen = ExtResource("2_ytsps")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -149,9 +151,38 @@ texture_progress = ExtResource("7_gxxqk")
 script = ExtResource("8_c7561")
 player = NodePath("../..")
 
+[node name="Highscore" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.164
+anchor_bottom = 0.137
+offset_left = 24.0
+offset_top = 30.0
+offset_right = -127.88
+offset_bottom = -74.96
+theme_override_fonts/font = ExtResource("4_ox4va")
+theme_override_font_sizes/font_size = 30
+text = "Highscore: "
+
+[node name="HighscoreNumber" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.164
+anchor_bottom = 0.137
+offset_left = 185.0
+offset_top = 33.0
+offset_right = -106.88
+offset_bottom = -71.96
+theme_override_font_sizes/font_size = 30
+text = "0"
+
 [node name="Sounds" type="Node3D" parent="."]
 
 [node name="GotHit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("8_bhrmw")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 300.0
+
 [connection signal="ability_granted" from="." to="." method="_on_ability_granted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

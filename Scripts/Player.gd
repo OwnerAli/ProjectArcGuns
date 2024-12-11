@@ -34,19 +34,24 @@ const JUMP_VELOCITY = 4.5
 var CURRENT_HEALTH: float = 20.0
 var MAX_HEALTH: float = 20.0
 var ZOMBIE_KILLS = 0.0
+var HIGH_SCORE_KILLS = 0.0
 var ACTIVE_ABILITY : Ability = null
 
 # Abilities
-var ability_inventory: Array = []
+var ability_inventory: Dictionary = {}
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var gun_anim = $Head/Camera3D/Rifle/AnimationPlayer
 @onready var gun_barrel = $Head/Camera3D/Rifle/RayCast3D
 
+@export var death_screen : PackedScene
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	load_game()
+	$Timer.start()
+	
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -103,7 +108,7 @@ func _physics_process(delta):
 	
 	# Abilities
 	if Input.is_action_just_pressed("activate_ability"):
-		ACTIVE_ABILITY.applya(self)
+		ACTIVE_ABILITY.apply(self)
 	
 	move_and_slide()
 
@@ -120,23 +125,30 @@ func hit(dir):
 	CURRENT_HEALTH -= 2
 	health_changed.emit(CURRENT_HEALTH)
 	$Sounds/GotHit.play()
-	MusicManager.get_child(1).play()
 	if CURRENT_HEALTH <= 0:
+		if ZOMBIE_KILLS > HIGH_SCORE_KILLS:
+			HIGH_SCORE_KILLS = ZOMBIE_KILLS
+			$UI/HighscoreNumber.text = str(HIGH_SCORE_KILLS)
+		save_game()
 		get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")
-	await get_tree().create_timer(10).timeout
-	MusicManager.get_child(1).stop()
 	
 # Function to add an ability to the player's inventory
 func grant_ability(ability: Ability):
-	# Add the ability to the player's inventory
-	ability_inventory.append(ability)
+	# Increment the count of the ability in the inventory or add it if it's new
+	if ability.unique_id in ability_inventory:
+		ability_inventory[ability.unique_id] += 1
+	else:
+		ability_inventory[ability.unique_id] = 1
+		
+	# If no active ability is set, set this one as the active ability
+	if ACTIVE_ABILITY == null:
+		ACTIVE_ABILITY = ability
+
+	# Emit a signal that the player has acquired a new ability
+	emit_signal("ability_granted", ability)
 
 	# Optionally print out to console for debugging
 	send_message("Ability unlocked: " + ability.ability_name)
-	print("Picked up ability: ", ability.ability_name)
-
-	# Emit a signal that the player has acquired a new ability (if needed)
-	emit_signal("ability_granted", ability)
 
 	# If the ability is active (like Fireball), you can immediately activate it
 	if ability.ability_name == "Fireball":
@@ -157,9 +169,6 @@ func start_fireball(damage: float, speed: float):
 	# Logic for firing the fireball
 	print("Firing fireball with damage:", damage, "and speed:", speed)
 	# Instantiate and shoot the fireball, etc.
-	
-func _on_ability_granted(ability):
-	ACTIVE_ABILITY = ability
 
 func add_to_health(amount: float):
 	CURRENT_HEALTH += amount
@@ -168,3 +177,34 @@ func add_to_health(amount: float):
 func add_to_counter():
 	ZOMBIE_KILLS+=1
 	$UI/KillCounter.text = str(ZOMBIE_KILLS)
+	
+
+const SAVE_GAME_PATH := "res://savegame.bin"
+
+var current_save : Dictionary = {
+	highscore = 0
+}
+
+func save_game() -> void:
+	var file = FileAccess.open(SAVE_GAME_PATH, FileAccess.WRITE)
+	var data: Dictionary = {
+		"high_score" : HIGH_SCORE_KILLS
+	}
+	var jstr = JSON.stringify(data)
+	file.store_line(jstr)
+	
+func load_game() -> void:
+	var file = FileAccess.open(SAVE_GAME_PATH, FileAccess.READ)
+	if !file: return
+	if file == null: return
+	if FileAccess.file_exists(SAVE_GAME_PATH) == true:
+		if !file.eof_reached():
+			var current_line = JSON.parse_string(file.get_line())
+			if current_line:
+				HIGH_SCORE_KILLS = float(current_line["high_score"])
+				$UI/HighscoreNumber.text = str(HIGH_SCORE_KILLS)
+
+func _on_timer_timeout():
+	send_message("Saving Game...")
+	save_game()
+	$Timer.start()

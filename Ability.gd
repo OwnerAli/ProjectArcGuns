@@ -7,6 +7,7 @@ class_name Ability extends Node
 @export var spawn_object: Area3D
 @export var effect_power: float = 1.0
 @export var despawn_time: float = 3.0
+@export var unique_id: float = -1.0
 
 func apply(player):
 	pass

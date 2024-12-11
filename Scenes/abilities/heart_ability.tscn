@@ -6,3 +6,4 @@
 script = ExtResource("1_kcqig")
 ability_name = "+2 Health"
 color = Color(1, 0, 0.152941, 1)
+unique_id = 1.0

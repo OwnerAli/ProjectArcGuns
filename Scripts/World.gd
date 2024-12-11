@@ -6,6 +6,7 @@ extends Node3D
 @onready var interaction_area: InteractionArea = $InteractionArea
 
 var zombie = load("res://Scenes/Zombie.tscn")
+var loloid = load("res://Scenes/Loloid.tscn")
 var instance
 
 
@@ -31,10 +32,18 @@ func _get_random_child(parent_node):
 
 func _on_zombie_spawn_timer_timeout():
 	var spawn_point = _get_random_child(spawns).global_position
-	instance = zombie.instantiate()
+	instance = zombie.instantiate()	
+	instance.position = spawn_point
+	navigation_region.add_child(instance)
+	
+func _on_wait_to_spawn_loloid_timeout():
+	$LoloidSpawnTimer.start()
+
+func _on_loloid_spawn_timer_timeout():
+	var spawn_point = _get_random_child(spawns).global_position
+	instance = loloid.instantiate()	
 	instance.position = spawn_point
 	navigation_region.add_child(instance)
 	
 func _on_interact():
 	get_tree().change_scene_to_file("res://Scenes/MapIntroAnimation.tscn")
-

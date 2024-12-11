@@ -6,7 +6,8 @@
 [node name="FireballAbility" type="Node" node_paths=PackedStringArray("spawn_object")]
 script = ExtResource("1_ku1aj")
 ability_name = "Fireball"
-color = Color(0.487613, 0, 0.00767693, 1)
+color = Color(0.877819, 0.234532, 1.92523e-07, 1)
 spawn_object = NodePath("Fireball")
+unique_id = 2.0
 
 [node name="Fireball" parent="." instance=ExtResource("2_v7d6b")]

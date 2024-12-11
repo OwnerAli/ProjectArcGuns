@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6p2b1t4cnw0x"]
+[gd_scene load_steps=4 format=3 uid="uid://c6p2b1t4cnw0x"]
 
-[ext_resource type="Script" path="res://scenes/abilities/main_menu.gd" id="1_oi0or"]
+[ext_resource type="Script" path="res://Scenes/death_screen.gd" id="1_2fx52"]
 [ext_resource type="Theme" uid="uid://beqwe20wd4blv" path="res://Scenes/abilities/main_menu_theme.tres" id="2_o3giu"]
+[ext_resource type="Theme" uid="uid://bf8p60ldhir6s" path="res://themes/button_theme_death_screen.tres" id="3_qlv5f"]
 
 [node name="CenterContainer" type="CenterContainer"]
 anchors_preset = 15
@@ -9,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_oi0or")
+script = ExtResource("1_2fx52")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(400, 0)
@@ -22,20 +23,24 @@ theme = ExtResource("2_o3giu")
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "You Died :("
+text = "You Died"
+horizontal_alignment = 1
 
 [node name="Start" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("2_o3giu")
+theme = ExtResource("3_qlv5f")
 action_mode = 0
 text = "Play Again"
 alignment = 0
 
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_qlv5f")
 text = "Quit
 "
 alignment = 0
 
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

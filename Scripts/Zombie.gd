@@ -19,7 +19,7 @@ const ATTACK_RANGE = 2.0
 func _ready():
 	player = get_node(player_path)
 	state_machine = anim_tree.get("parameters/playback")
-
+	$SubViewport/Healthbar3D.value = health
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -55,29 +55,33 @@ func _hit_finished():
 func _on_area_3d_body_part_hit(dam):
 	particles.emitting = true
 	health -= dam
+	if not $SubViewport/Healthbar3D == null:
+		$SubViewport/Healthbar3D.value = health
 	if health <= 0:
 		_on_death()
 		
 func _on_death():
 	anim_tree.set("parameters/conditions/die", true)
 	player.add_to_counter()
+	$SubViewport/Healthbar3D.queue_free()
 	await get_tree().create_timer(4.0).timeout
 	queue_free()
 	_drop_ability()
 	
 # Drop an ability as an AbilityPickup
 func _drop_ability():
-	if available_abilities.size() > 0:
-		var random_ability = available_abilities[randi() % available_abilities.size()]
-		var ability = random_ability.instantiate()
+	if randi() % 100 < 10:
+		if available_abilities.size() > 0:
+			var random_ability = available_abilities[randi() % available_abilities.size()]
+			var ability = random_ability.instantiate()
 		
-		# Instantiate AbilityPickup and assign the random ability to it
-		var ability_pickup = preload("res://Scenes/abilities/PickupAbility.tscn").instantiate()
+			# Instantiate AbilityPickup and assign the random ability to it
+			var ability_pickup = preload("res://Scenes/abilities/PickupAbility.tscn").instantiate()
 		
-		# Set the ability for the pickup (you might want to store the ability inside the pickup)
-		ability_pickup.set_ability(ability)
+			# Set the ability for the pickup (you might want to store the ability inside the pickup)
+			ability_pickup.set_ability(ability)
 		
-		ability_pickup.global_transform.origin = global_transform.origin  # Place it at the zombie's location
-		get_tree().current_scene.add_child(ability_pickup)
-		
-		print("Zombie dropped an ability pickup:", ability.ability_name)
+			ability_pickup.global_transform.origin = global_transform.origin  # Place it at the zombie's location
+			get_tree().current_scene.add_child(ability_pickup)
+
+
